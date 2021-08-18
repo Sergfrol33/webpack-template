@@ -1,12 +1,10 @@
-import './style/index.scss'
-const elven = {
-    leather: 2,
-    iron: 1,
-    human: true
-}
-const human = {
-    ...elven,
-    leather: false
-}
-console.log(elven)
-console.log(human)
+
+import ReactDOM from 'react-dom'
+import React from "react";
+import App from "./components/App";
+
+ReactDOM.render(
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>
+    , document.getElementById('root'))
