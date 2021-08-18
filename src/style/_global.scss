@@ -1,0 +1,8 @@
+@use "varibales";
+
+body{
+  margin: 0;
+  background: varibales.$bg;
+  color:  var(--text);
+  font-size: 35px;
+}

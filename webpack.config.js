@@ -1,40 +1,37 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+let mode = 'development'
+
+if (process.env.NODE_ENV === 'production'){
+    mode = 'production'
+}
+
 module.exports = {
-    mode: "development",
-    devServer: {
-        port: 3000,
-        contentBase: path.join(__dirname,'dist'),
-        compress: true,
-        watchContentBase: true,
-        progress: true,
-        hot: true,
-        open: true,
-        historyApiFallback: true,
-    },
-    entry: './src/index.js',
-    output: {
-        path: path.join(__dirname,'dist'),
-        filename: "index_bundle.js"
-    },
+    mode: mode,
+    devtool: 'source-map',
     module: {
         rules: [
+            {
+                test: /\.s?css$/i,
+                use: [MiniCssExtractPlugin.loader,'css-loader','sass-loader']
+            },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader"
                 }
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader','css-loader']
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/public/index.html"
-        })
+        new MiniCssExtractPlugin()
     ],
+    devServer: {
+        contentBase: "./dist",
+        port: 3000,
+        hot: true
+    },
+    target: 'web'
 }
