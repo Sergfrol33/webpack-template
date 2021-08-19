@@ -5,6 +5,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ESlintPlugin = require('eslint-webpack-plugin')
+
 let mode = 'development'
 let target = 'web'
 
@@ -34,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
     optimization.minimizer.push(new UglifyJsPlugin())
 } else {
     plugins.push(new ReactRefreshWebpackPlugin())
-    plugins.push(new ESlintPlugin({extensions: ['js','jsx','ts','tsx']}))
+    plugins.push(new ESlintPlugin({cache:true,extensions: ['js','jsx','ts','tsx']}))
 }
 
 module.exports = {
@@ -48,10 +49,12 @@ module.exports = {
     },
     module: {
         rules: [
+            //assets
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
                 type: 'asset'
             },
+            //Style-loader
             {
                 test: /\.(s[ac]|c)ss$/i,
                 use: [
@@ -64,6 +67,7 @@ module.exports = {
                     'sass-loader'
                 ]
             },
+            //TS-loader
             {
                 test: /\.ts(x?)$/,
                 exclude: /node_modules/,
@@ -71,6 +75,7 @@ module.exports = {
                     loader: "ts-loader"
                 }
             },
+            //Babel-loader
             {
                 test: /\.js(x?)$/,
                 exclude: /node_modules/,

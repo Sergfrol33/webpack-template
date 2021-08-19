@@ -1,15 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Recipes from "./Recipes";
 
 const Home = () => {
-    const [data,setData] = useState({})
-    useEffect(() =>{
-        fetch('https://jsonplaceholder.typicode.com/comments').then(res => res.json()).then(res => setData(res))
-    },[setData])
+    const [data, setData] = useState({
+        text: 'text',
+        newText: 'neWtext',
+        a: 10
+    })
     return (
         <div>
-            tete
-            <Recipes/>
+            {Object.entries(data).map((item: any, index) => {
+
+                return (
+                    <div key={index} style={{
+                        display: "flex",
+                        width: '50%',
+                        justifyContent: 'space-between'
+                    }}>
+
+                        <div>
+                            {item[0]}
+                        </div>
+                        <div>
+                            {item[1]}
+                        </div>
+                    </div>
+                )
+            })}
         </div>
     );
 };
