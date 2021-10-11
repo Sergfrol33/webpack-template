@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     mode: "development",
+
     devServer: {
         port: 3000,
         contentBase: path.join(__dirname,'dist'),
@@ -12,7 +13,7 @@ module.exports = {
         open: true,
         historyApiFallback: true,
     },
-    entry: './src/index.ts',
+    entry: './src/index.ts' ,
     output: {
         path: path.join(__dirname,'dist'),
         filename: "index.js"
@@ -20,10 +21,10 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.[tj]s$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "ts-loader"
+                    loader: "babel-loader"
                 }
             },
         ]
